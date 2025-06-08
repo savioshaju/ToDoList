@@ -1,3 +1,4 @@
+
 const addTask = document.getElementById('add-task');
 
 addTask.addEventListener('click', () => {
@@ -76,18 +77,59 @@ addTask.addEventListener('click', () => {
         const taskList = document.getElementById('task-list');
 
         const li = document.createElement('li');
-        li.textContent = taskInputValue;
-        li.setAttribute('class', 'list-group-item  d-flex justify-content-between align-items-center my-4');
+        const span = document.createElement('span');
+        span.setAttribute('class', 'd-flex justify-content-between')
+
+        li.setAttribute('class', 'list-group-item  d-flex justify-content-between align-items-center my-4 bg-warning');
         const btnDel = document.createElement('button');
         btnDel.setAttribute('type', 'button delBtn');
         btnDel.setAttribute('id', 'delBtn')
         btnDel.setAttribute('class', 'btn btn-danger ');
         btnDel.textContent = 'Delete Task';
 
+        const divToggle = document.createElement('div')
+        divToggle.setAttribute('class', 'form-check form-switch')
+
+
+        const toggle = document.createElement('input');
+        toggle.setAttribute('class', 'form-check-input')
+        toggle.setAttribute('type', 'checkbox')
+        toggle.setAttribute('id', 'toggleSwitch')
+
+        const toggleLabel = document.createElement('label')
+        toggleLabel.setAttribute('class', 'form-check-label')
+        label.setAttribute('for', 'toggleSwitch');
+        label.textContent = '';
+
+        divToggle.appendChild(toggle)
+        divToggle.appendChild(toggleLabel)
+        const taskData = document.createElement('div')
+        taskData.setAttribute('class', 'mx-3')
+        taskData.textContent = taskInputValue;
+        span.appendChild(divToggle)
+        span.appendChild(taskData)
+        li.appendChild(span)
         li.appendChild(btnDel)
         btnDel.addEventListener('click', () => {
-            li.remove(); 
+            li.remove();
         });
+
+        toggle.addEventListener('click', () => {
+            if (span.style.textDecoration === 'line-through') {
+                span.style.textDecoration = 'none';
+                li.classList.remove('bg-success')
+
+                li.classList.add('bg-warning')
+            } else {
+                span.style.textDecoration = 'line-through';
+                li.classList.remove('bg-warning')
+
+                li.classList.add('bg-success')
+
+
+            }
+        });
+
         taskList.appendChild(li);
         bsModal.hide();
     });
